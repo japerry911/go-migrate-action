@@ -117,4 +117,19 @@ function postgres:migrate() {
 
 echo "Starting golang-migrate CLI command..."
 
+# Download golang-migrate at runtime using the version from INPUT_GOMIGRATE_VERSION
+if [[ -z "$INPUT_GOMIGRATE_VERSION" ]]; then
+    echo "❌ INPUT_GOMIGRATE_VERSION is not set."
+    exit 1
+fi
+
+echo "⬇️  Downloading golang-migrate version $INPUT_GOMIGRATE_VERSION..."
+curl -sSL -o migrate.tar.gz "https://github.com/golang-migrate/migrate/releases/download/${INPUT_GOMIGRATE_VERSION}/migrate.linux-amd64.tar.gz"
+if ! tar -xzf migrate.tar.gz; then
+    echo "❌ Failed to extract golang-migrate. Check if the version is correct: $INPUT_GOMIGRATE_VERSION"
+    exit 1
+fi
+chmod +x migrate && mv migrate /usr/local/bin/migrate
+rm -f migrate.tar.gz
+
 postgres:migrate
