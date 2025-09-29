@@ -4,7 +4,7 @@ ARG INPUT_GOMIGRATE_VERSION
 ENV GOMIGRATE_VERSION=$INPUT_GOMIGRATE_VERSION
 
 # Install golang-migrate
-RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${GOMIGRATE_VERSION}/migrate.linux-amd64.tar.gz | tar xvz
+RUN curl -L https://github.com/golang-migrate/migrate/releases/download/$GOMIGRATE_VERSION/migrate.linux-amd64.tar.gz | tar xvz
 
 # Install gcloud SDK
 RUN apt-get update -q && \
