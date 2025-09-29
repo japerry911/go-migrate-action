@@ -24,7 +24,7 @@ function _run_with_tunnel() {
         echo "❌ BASTION_VM_NAME is not set. Please set the BASTION_VM_NAME environment variable."
         exit 1
     fi
-grep -rni --color=always 'password\|secret\|token\|key\|private' .grep -rni --color=always 'password\|secret\|token\|key\|private' .grep -rni --color=always 'password\|secret\|token\|key\|private' .
+
     local BASTION_VM_ZONE="${INPUT_BASTION_VM_ZONE}"
     if [[ -z $BASTION_VM_ZONE ]]; then
         echo "❌ BASTION_VM_ZONE is not set. Please set the BASTION_VM_ZONE environment variable."
