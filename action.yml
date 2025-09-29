@@ -3,6 +3,11 @@ description: >
   A custom GitHub Action to build and run a Docker container for Go migrations in a Private
   Cloud SQL GCP environment.
 author: 'Jack Perry'
+
+branding:
+  icon: 'database'
+  color: 'purple'
+
 inputs:
   GOMIGRATE_VERSION:
     description: 'Version of golang-migrate to use (e.g., v4.15.2)'
