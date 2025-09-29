@@ -108,8 +108,8 @@ function _urlencode() {
 # Connects to the private database and runs migrations.
 function postgres:migrate() {
     local encoded_password
-    encoded_password=$(_urlencode "${DB_PASSWORD}")
-    local MIGRATE_CMD_ARRAY=(migrate -database "postgres://${DB_USER}:${encoded_password}@127.0.0.1:5432/${DB_NAME}?sslmode=disable" -path migrations)
+    encoded_password=$(_urlencode "${INPUT_DB_PASSWORD}")
+    local MIGRATE_CMD_ARRAY=(migrate -database "postgres://${INPUT_DB_USER}:${encoded_password}@127.0.0.1:5432/${INPUT_DB_NAME}?sslmode=disable" -path migrations)
     echo "🚀 Running database migrations..."
     _run_with_tunnel "${MIGRATE_CMD_ARRAY[@]}" "up"
     echo "✅ Migrations applied successfully."
