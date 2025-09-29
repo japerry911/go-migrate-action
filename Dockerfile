@@ -1,7 +1,7 @@
 FROM golang:1.25.1-bookworm as builder
 
 ARG INPUT_GOMIGRATE_VERSION
-ENV GOMIGRATE_VERSION $INPUT_GOMIGRATE_VERSION
+ENV GOMIGRATE_VERSION=$INPUT_GOMIGRATE_VERSION
 
 # Install golang-migrate
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${GOMIGRATE_VERSION}/migrate.linux-amd64.tar.gz | tar xvz
