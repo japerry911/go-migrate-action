@@ -1,7 +1,7 @@
 FROM golang:1.25.1-bookworm as builder
 
-# Install golang-migrate
-RUN curl -L https://github.com/golang-migrate/migrate/releases/download/$INPUT_GOMIGRATE_VERSION/migrate.linux-amd64.tar.gz | tar xvz
+# Install golang-migrate using the INPUT_GOMIGRATE_VERSION environment variable (set by action.yml)
+RUN curl -L https://github.com/golang-migrate/migrate/releases/download/${INPUT_GOMIGRATE_VERSION}/migrate.linux-amd64.tar.gz | tar xvz
 
 # Install gcloud SDK
 RUN apt-get update -q && \
