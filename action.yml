@@ -1,0 +1,46 @@
+name: 'Go-Migrate-Action'
+description: >
+  A custom GitHub Action to build and run a Docker container for Go migrations in a Private
+  Cloud SQL GCP environment. It utilizes a provided GCP VM machine as a bastion, middleman, instance,
+  to connect to a Private IP Cloud SQL instance and execute database migrations.
+
+  **Note**: The bastion VM must be running Google Cloud Proxy script to connect to the Cloud SQL instance.
+  The documentation on Cloud SQL Proxy is [here](https://cloud.google.com/sql/docs/mysql/sql-proxy#install).
+author: 'Jack Perry'
+inputs:
+  GOMIGRATE_VERSION:
+    description: 'Version of golang-migrate to use (e.g., v4.15.2)'
+    required: true
+
+  DB_USER:
+    description: 'Database user with permissions to run migrations, pass this through as a GitHub secret for security'
+    required: true
+
+  DB_PASSWORD:
+    description: 'Password for the database user, pass this through as a GitHub secret for security'
+    required: true
+
+  DB_NAME:
+    description: 'Name of the database to run migrations against'
+    required: true
+
+  GCP_PROJECT_ID:
+    description: 'GCP Project ID where the bastion VM and Cloud SQL instance are located, pass this through as a GitHub secret for security'
+    required: true
+
+  BASTION_VM_NAME:
+    description: 'Name of the GCP VM instance to use as a bastion host'
+    required: true
+
+  BASTION_VM_ZONE:
+    description: 'Zone where the GCP VM instance is located (e.g., us-central1-a)'
+    required: true
+
+  SSH_NAME:
+    description: 'Name of the SSH name you would like to have when it SSHs into the bastion host'
+    required: false
+    default: 'github-action-go-migration'
+  
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
