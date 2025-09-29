@@ -40,3 +40,12 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.GOMIGRATE_VERSION }}
+    - ${{ inputs.DB_USER }}
+    - ${{ inputs.DB_PASSWORD }}
+    - ${{ inputs.DB_NAME }}
+    - ${{ inputs.GCP_PROJECT_ID }}
+    - ${{ inputs.BASTION_VM_NAME }}
+    - ${{ inputs.BASTION_VM_ZONE }}
+    - ${{ inputs.SSH_NAME }}
