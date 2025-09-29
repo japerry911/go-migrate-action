@@ -40,12 +40,3 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    INPUT_GOMIGRATE_VERSION: ${{ inputs.GOMIGRATE_VERSION }}
-    INPUT_DB_USER: ${{ inputs.DB_USER }}
-    INPUT_DB_PASSWORD: ${{ inputs.DB_PASSWORD }}
-    INPUT_DB_NAME: ${{ inputs.DB_NAME }}
-    INPUT_GCP_PROJECT_ID: ${{ inputs.GCP_PROJECT_ID }}
-    INPUT_BASTION_VM_NAME: ${{ inputs.BASTION_VM_NAME }}
-    INPUT_BASTION_VM_ZONE: ${{ inputs.BASTION_VM_ZONE }}
-    INPUT_SSH_NAME: ${{ inputs.SSH_NAME }}

@@ -13,19 +13,19 @@ function _run_with_tunnel() {
     fi
 
     # Your GCP username (can be overridden with the SSH_NAME environment variable)
-    local SSH_NAME="${INPUT_SSH_NAME}"
+    local SSH_NAME="${SSH_NAME}"
     if [[ -z $SSH_NAME ]]; then
         echo "❌ SSH_NAME is not set. Please set the SSH_NAME environment variable."
         exit 1
     fi
 
-    local BASTION_VM_NAME="${INPUT_BASTION_VM_NAME}"
+    local BASTION_VM_NAME="${BASTION_VM_NAME}"
     if [[ -z $BASTION_NAME ]]; then
         echo "❌ BASTION_VM_NAME is not set. Please set the BASTION_VM_NAME environment variable."
         exit 1
     fi
 grep -rni --color=always 'password\|secret\|token\|key\|private' .grep -rni --color=always 'password\|secret\|token\|key\|private' .grep -rni --color=always 'password\|secret\|token\|key\|private' .
-    local BASTION_VM_ZONE="${INPUT_BASTION_VM_ZONE}"
+    local BASTION_VM_ZONE="${BASTION_VM_ZONE}"
     if [[ -z $BASTION_VM_ZONE ]]; then
         echo "❌ BASTION_VM_ZONE is not set. Please set the BASTION_VM_ZONE environment variable."
         exit 1
@@ -108,8 +108,8 @@ function _urlencode() {
 # Connects to the private database and runs migrations.
 function postgres:migrate() {
     local encoded_password
-    encoded_password=$(_urlencode "${INPUT_DB_PASSWORD}")
-    local MIGRATE_CMD_ARRAY=(migrate -database "postgres://${INPUT_DB_USER}:${encoded_password}@127.0.0.1:5432/${INPUT_DB_NAME}?sslmode=disable" -path migrations)
+    encoded_password=$(_urlencode "${DB_PASSWORD}")
+    local MIGRATE_CMD_ARRAY=(migrate -database "postgres://${DB_USER}:${encoded_password}@127.0.0.1:5432/${DB_NAME}?sslmode=disable" -path migrations)
     echo "🚀 Running database migrations..."
     _run_with_tunnel "${MIGRATE_CMD_ARRAY[@]}" "up"
     echo "✅ Migrations applied successfully."
@@ -117,16 +117,16 @@ function postgres:migrate() {
 
 echo "Starting golang-migrate CLI command..."
 
-# Download golang-migrate at runtime using the version from INPUT_GOMIGRATE_VERSION
-if [[ -z "$INPUT_GOMIGRATE_VERSION" ]]; then
-    echo "❌ INPUT_GOMIGRATE_VERSION is not set."
+# Download golang-migrate at runtime using the version from GOMIGRATE_VERSION
+if [[ -z "$GOMIGRATE_VERSION" ]]; then
+    echo "❌ GOMIGRATE_VERSION is not set."
     exit 1
 fi
 
-echo "⬇️  Downloading golang-migrate version $INPUT_GOMIGRATE_VERSION..."
-curl -sSL -o migrate.tar.gz "https://github.com/golang-migrate/migrate/releases/download/${INPUT_GOMIGRATE_VERSION}/migrate.linux-amd64.tar.gz"
+echo "⬇️  Downloading golang-migrate version $GOMIGRATE_VERSION..."
+curl -sSL -o migrate.tar.gz "https://github.com/golang-migrate/migrate/releases/download/${GOMIGRATE_VERSION}/migrate.linux-amd64.tar.gz"
 if ! tar -xzf migrate.tar.gz; then
-    echo "❌ Failed to extract golang-migrate. Check if the version is correct: $INPUT_GOMIGRATE_VERSION"
+    echo "❌ Failed to extract golang-migrate. Check if the version is correct: $GOMIGRATE_VERSION"
     exit 1
 fi
 chmod +x migrate && mv migrate /usr/local/bin/migrate
