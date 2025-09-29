@@ -31,6 +31,12 @@ function _run_with_tunnel() {
         exit 1
     fi
 
+    local GCP_PROJECT_ID="${INPUT_GCP_PROJECT_ID}"
+    if [[ -z $GCP_PROJECT_ID ]]; then
+        echo "❌ GCP_PROJECT_ID is not set. Please set the GCP_PROJECT_ID environment variable."
+        exit 1
+    fi
+
     echo "➡️  Step 1 of 5: Checking bastion host status..."
     local bastion_status
     bastion_status=$(gcloud compute instances describe "${BASTION_VM_NAME}" --zone="${BASTION_VM_ZONE}" --project="${GCP_PROJECT_ID}" --format="value(status)" 2>/dev/null || echo "NOT_FOUND")
