@@ -40,7 +40,7 @@ inputs:
   SSH_NAME:
     description: 'Name of the SSH name you would like to have when it SSHs into the bastion host'
     required: false
-    default: 'gha_artifact_pusher_nonprod_fd_gke_non_prod_iam_gserviceaccount_com'
+    default: 'github-action-go-migration'
   
 runs:
   using: 'docker'
