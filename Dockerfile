@@ -1,12 +1,12 @@
 FROM golang:1.25.1-bookworm AS builder
 
-# Install gcloud SDK
+# Install gcloud CLI
 RUN apt-get update -q && \
     apt-get install -y --no-install-recommends curl gnupg && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/google-cloud-sdk.gpg && \
     echo "deb [signed-by=/usr/share/keyrings/google-cloud-sdk.gpg] https://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
     apt-get update -q && \
-    apt-get -y install google-cloud-sdk netcat-openbsd && \
+    apt-get -y install google-cloud-cli netcat-openbsd && \
     # Clean up
     apt-get autoremove -y && \
     apt-get clean -y && \
